@@ -18,6 +18,7 @@ struct IntroThree: View {
             VStack(spacing: 25) {
                 Spacer()
                 
+                #warning("Intro Three Widget Image Remaning")
                 Image(.introOne)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
