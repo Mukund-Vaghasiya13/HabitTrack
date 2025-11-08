@@ -10,7 +10,7 @@ import Foundation
 
 enum AppCresentails: String {
     
-    static let appName = "HabitTracker"
+    static let appName = "HabitTrack"
     
     // Due To sandbox restriction
     case appStorageSuit = ""
