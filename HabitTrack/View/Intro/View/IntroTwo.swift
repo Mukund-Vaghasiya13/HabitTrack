@@ -18,7 +18,8 @@ struct IntroTwo: View {
             VStack(spacing: 25) {
                 Spacer()
                 
-                Image(.intorTwo) // Add your image to Assets
+                #warning("Intro Two Image is no looking good")
+                Image(.introTwo) // Add your image to Assets
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 250, height: 250)
@@ -39,7 +40,7 @@ struct IntroTwo: View {
                 Button {
                     IntroState.saveIntroState(introState: .introThree)
                 } label: {
-                    HabitButton(title: "Continue")
+                    IntroButton(title: "Continue")
                 }
                 .padding(.bottom, 25)
                     

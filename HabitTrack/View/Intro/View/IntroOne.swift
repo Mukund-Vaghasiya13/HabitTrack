@@ -41,7 +41,7 @@ struct IntroOne: View {
                 Button {
                     IntroState.saveIntroState(introState: .introTwo)
                 } label: {
-                    HabitButton(title: "Continue")
+                    IntroButton(title: "Continue")
                 }
                 .padding(.bottom, 25)
             }
@@ -52,21 +52,4 @@ struct IntroOne: View {
 
 #Preview {
     IntroOne()
-}
-
-
-struct HabitButton: View {
-    
-    @Environment(\.colorScheme) var colorScheme
-    let title: String
-    
-    var body: some View {
-        Text(title)
-            .customFont(size: 20, weight: .bold)
-            .foregroundStyle(colorScheme == .light ? .color1 : .color3)
-            .frame(maxWidth: .infinity)
-            .frame(height: 55)
-            .background(colorScheme == .light ? .color3 : .color1 )
-            .cornerRadius(10)
-    }
 }

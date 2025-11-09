@@ -18,16 +18,11 @@ struct IntroThree: View {
             VStack(spacing: 25) {
                 Spacer()
                 
-                #warning("Intro Three Widget Image Remaning")
-                Image(.introOne)
+                Image(.introThree)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 200)
-                    .background(.color2)
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                    .frame(width: 200, height: 200)
 
-                    
                 VStack(spacing: 10) {
                     Text("Track Habits\nRight from Widgets")
                         .customFont(size: 25, weight: .bold)
@@ -43,7 +38,7 @@ struct IntroThree: View {
                     // End of intro — go to main app
                     IntroState.saveIntroState(introState: .home)
                 } label: {
-                   HabitButton(title: "Get Started")
+                   IntroButton(title: "Get Started")
                 }
                 .padding(.bottom, 25)
                     
