@@ -21,11 +21,8 @@ struct IntroOne: View {
                 
                 Image(.introOne)
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 200)
-                    .background(.color2)
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
                     
                 VStack(spacing: 10) {
                     Text("Create Your Own\nHabit")

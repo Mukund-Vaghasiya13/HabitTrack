@@ -35,11 +35,12 @@ struct NewHabitView: View {
                     }
                     
                     CustomSection(headerTilte: "Description") {
-                        TextField("", text: $name)
-                            .padding(.leading)
+                        TextEditor(text: $description)
                             .frame(maxWidth: .infinity)
                             .frame(height: 55)
-                            .background(Color.gray.opacity(0.13))
+                            .scrollContentBackground(.hidden)
+                            .padding()
+                            .background(.gray.opacity(0.13))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                 

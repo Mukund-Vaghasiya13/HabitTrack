@@ -18,7 +18,6 @@ struct IntroTwo: View {
             VStack(spacing: 25) {
                 Spacer()
                 
-                #warning("Intro Two Image is no looking good")
                 Image(.introTwo) // Add your image to Assets
                     .resizable()
                     .aspectRatio(contentMode: .fill)
