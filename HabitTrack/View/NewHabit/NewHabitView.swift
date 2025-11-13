@@ -7,16 +7,32 @@
 
 import SwiftUI
 
+@Observable class HabitFormfields {
+    var name: String = ""
+    
+    var description: String = ""
+    
+    var progerssColor: Color = .green
+    var isReminderActive: Bool = false
+    
+    var reminderTime: Date = .now
+    
+    var showIconSheet: Bool = false
+    
+    var habitIcon: String = "photo"
+}
+
+
+
 
 struct NewHabitView: View {
     
     let title: String
     
     @Environment(\.dismiss) var dismissSheet
+    @Environment(\.colorScheme) var colorScheme
     
-    @State private var name: String = ""
-    
-    @State private var description: String = ""
+    @State private var habitFormFieldsVM =  HabitFormfields()
     
     var body: some View {
         NavigationStack {
@@ -25,25 +41,83 @@ struct NewHabitView: View {
                 BackgroundColor()
                 
                 VStack(spacing: 16) {
-                    CustomSection(headerTilte: "Name") {
-                        TextField("", text: $name)
-                            .padding(.leading)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 55)
-                            .background(Color.gray.opacity(0.13))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    
+                    HStack(spacing: 20) {
+
+                        Button {
+                            
+                        } label: {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(.color4)
+                                    .frame(width: 80, height: 80)
+                                    .overlay {
+                                        Image(systemName: habitFormFieldsVM.habitIcon)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .foregroundStyle(colorScheme == .light ? .color3 : .color1)
+                                            .padding()
+                                            .foregroundStyle(.black)
+                                    }
+                        }
+
+                        CustomSection(headerTilte: "Name") {
+                            TextField("", text: $habitFormFieldsVM.name)
+                                .padding(.leading)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 55)
+                                .background(.color4)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        }
                     }
+                
                     
                     CustomSection(headerTilte: "Description") {
-                        TextEditor(text: $description)
+                        TextEditor(text: $habitFormFieldsVM.description)
                             .frame(maxWidth: .infinity)
                             .frame(height: 55)
                             .scrollContentBackground(.hidden)
                             .padding()
-                            .background(.gray.opacity(0.13))
+                            .background(.color4)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
+                    
+                    ColorPicker("Color", selection: $habitFormFieldsVM.progerssColor)
+                        .customFont(size: 25, weight: .regular)
+                        .foregroundStyle(.gray)
+                        .padding(10)
+                        .background(.color4)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        
+                    CustomListCell(placeholder: "Category") {
+                        Button {
+                            
+                        } label: {
+                            HStack {
+                                Text("None")
+                                Image(systemName: "chevron.right")
+                            }
+                            .foregroundStyle(colorScheme == .light ? .color3 : .color1)
+                            .customFont(size: 25, weight: .regular)
+                        }
+                    }
                 
+                    
+                    Toggle("Reminder", isOn: $habitFormFieldsVM.isReminderActive)
+                    .foregroundStyle(.gray)
+                    .customFont(size: 25, weight: .regular)
+                    .padding(10)
+                    .background(.color4)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    
+                    if habitFormFieldsVM.isReminderActive {
+                        DatePicker("Reminder Timer", selection: $habitFormFieldsVM.reminderTime, displayedComponents: .hourAndMinute)
+                            .foregroundStyle(.gray)
+                            .customFont(size: 25, weight: .regular)
+                            .padding(10)
+                            .background(.color4)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    
                     Spacer()
                 }
                 .padding(.horizontal)
@@ -78,4 +152,32 @@ struct NewHabitView: View {
 
 #Preview {
     NewHabitView(title: "New Habit")
+}
+
+
+struct CustomListCell<T: View> : View {
+    
+    let content: () ->  T
+    
+    let placeholder: String
+    
+    init(placeholder: String, @ViewBuilder content: @escaping () -> T) {
+        self.content = content
+        self.placeholder = placeholder
+    }
+    
+    var body: some View {
+        HStack {
+            Text(placeholder)
+                .foregroundStyle(.gray)
+                .customFont(size: 25, weight: .regular)
+            
+            Spacer()
+            
+           content()
+        }
+        .padding(10)
+        .background(.color4)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
 }
