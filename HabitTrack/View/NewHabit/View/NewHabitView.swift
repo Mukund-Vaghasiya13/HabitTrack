@@ -7,23 +7,6 @@
 
 import SwiftUI
 
-@Observable class HabitFormfields {
-    var name: String = ""
-    
-    var description: String = ""
-    
-    var progerssColor: Color = .green
-    var isReminderActive: Bool = false
-    
-    var reminderTime: Date = .now
-    
-    var showIconSheet: Bool = false
-    
-    var habitIcon: String = "photo"
-}
-
-
-
 
 struct NewHabitView: View {
     
@@ -34,11 +17,14 @@ struct NewHabitView: View {
     
     @State private var habitFormFieldsVM =  HabitFormfields()
     
+    @FocusState private var fieldsFocusState: FeildsFocus?
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 
                 BackgroundColor()
+                    
                 
                 VStack(spacing: 16) {
                     
@@ -67,6 +53,7 @@ struct NewHabitView: View {
                                 .frame(height: 55)
                                 .background(.color4)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .focused($fieldsFocusState, equals: .name)
                         }
                     }
                 
@@ -79,6 +66,7 @@ struct NewHabitView: View {
                             .padding()
                             .background(.color4)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .focused($fieldsFocusState, equals: .description)
                     }
                     
                     ColorPicker("Color", selection: $habitFormFieldsVM.progerssColor)
@@ -121,6 +109,7 @@ struct NewHabitView: View {
                     Spacer()
                 }
                 .padding(.horizontal)
+                
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -144,6 +133,9 @@ struct NewHabitView: View {
                     }
                 }
             }
+            .onTapGesture {
+                fieldsFocusState = nil
+            }
         }
         
     }
@@ -155,29 +147,4 @@ struct NewHabitView: View {
 }
 
 
-struct CustomListCell<T: View> : View {
-    
-    let content: () ->  T
-    
-    let placeholder: String
-    
-    init(placeholder: String, @ViewBuilder content: @escaping () -> T) {
-        self.content = content
-        self.placeholder = placeholder
-    }
-    
-    var body: some View {
-        HStack {
-            Text(placeholder)
-                .foregroundStyle(.gray)
-                .customFont(size: 25, weight: .regular)
-            
-            Spacer()
-            
-           content()
-        }
-        .padding(10)
-        .background(.color4)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-    }
-}
+
