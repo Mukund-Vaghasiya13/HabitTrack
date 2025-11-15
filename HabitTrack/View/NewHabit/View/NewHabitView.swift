@@ -69,12 +69,23 @@ struct NewHabitView: View {
                             .focused($fieldsFocusState, equals: .description)
                     }
                     
-                    ColorPicker("Color", selection: $habitFormFieldsVM.progerssColor)
-                        .customFont(size: 25, weight: .regular)
-                        .foregroundStyle(.gray)
-                        .padding(10)
-                        .background(.color4)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                    ColorPicker(selection: $habitFormFieldsVM.progerssColor) {
+                        HStack(spacing: 10) {
+                            Text("Color")
+                            
+                            ForEach(1..<3) { i in
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(habitFormFieldsVM.progerssColor.opacity( 1.0 / Double(i) ))
+                                    .frame(width: 25, height: 25)
+                            }
+                            
+                        }
+                    }
+                    .customFont(size: 25, weight: .regular)
+                    .foregroundStyle(.gray)
+                    .padding(10)
+                    .background(.color4)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                         
                     CustomListCell(placeholder: "Category") {
                         Button {
@@ -89,6 +100,17 @@ struct NewHabitView: View {
                         }
                     }
                 
+                    
+                    CustomSection(headerTilte: "Count: \(habitFormFieldsVM.compitionPerDay)") {
+                        
+                        Stepper("Complition Per Day", value: $habitFormFieldsVM.compitionPerDay, in: 1...50)
+                        .customFont(size: 25, weight: .regular)
+                        .foregroundStyle(.gray)
+                        .padding(10)
+                        .background(.color4)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    
                     
                     Toggle("Reminder", isOn: $habitFormFieldsVM.isReminderActive)
                     .foregroundStyle(.gray)
@@ -107,6 +129,7 @@ struct NewHabitView: View {
                     }
                     
                     Spacer()
+                    
                 }
                 .padding(.horizontal)
                 

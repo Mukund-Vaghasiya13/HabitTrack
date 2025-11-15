@@ -20,5 +20,7 @@ import SwiftUI
     var showIconSheet: Bool = false
     
     var habitIcon: String = "photo"
+    
+    var compitionPerDay = 1
 }
 
