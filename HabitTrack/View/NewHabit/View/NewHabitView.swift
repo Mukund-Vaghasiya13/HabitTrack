@@ -19,6 +19,8 @@ struct NewHabitView: View {
     
     @FocusState private var fieldsFocusState: FeildsFocus?
     
+    @Environment(DatabaseViewModel.self) var habitDbVM
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -150,7 +152,8 @@ struct NewHabitView: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                      // TODO: Add Data
+                        habitDbVM.insertRecord(habit: habitFormFieldsVM.createHabit())
+                        dismissSheet()
                     } label: {
                         Image(systemName: "checkmark.circle")
                     }

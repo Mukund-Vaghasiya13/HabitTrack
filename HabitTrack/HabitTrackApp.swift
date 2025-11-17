@@ -12,6 +12,8 @@ struct HabitTrackApp: App {
     
     @AppStorage("introState") var instroState: IntroState.RawValue = IntroState.introOne.rawValue
     
+    @State private var habitDatabaseViewModel = DatabaseViewModel()
+    
     var body: some Scene {
         WindowGroup {
             if let intro = IntroState(rawValue: instroState) {
@@ -24,6 +26,7 @@ struct HabitTrackApp: App {
                     IntroThree()
                 case .home:
                     HomeView()
+                        .environment(habitDatabaseViewModel)
                 }
             } else {
                 IntroOne()

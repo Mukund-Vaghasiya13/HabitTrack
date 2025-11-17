@@ -6,21 +6,25 @@
 //
 
 import Foundation
-import CoreData
+internal import CoreData
 
 //TODO: .xcmodel file and data base name
 
 class PersistentManager {
     
+    
+    static let shared = PersistentManager()
+
+    
     let persistantManager: NSPersistentContainer
     let context: NSManagedObjectContext
     
-    init() {
-        persistantManager = NSPersistentCloudKitContainer(name: "")
+    private init() {
+        persistantManager = NSPersistentCloudKitContainer(name: "HabitTrack")
         
         guard let groupURL = FileManager.default
             .containerURL(forSecurityApplicationGroupIdentifier: AppCresentails.appStorageSuit.rawValue)?
-                   .appendingPathComponent("YourDatabase.sqlite")
+                   .appendingPathComponent("HabitTrack.sqlite")
         else {
             fatalError("❌ App Group directory not found")
         }
@@ -32,6 +36,8 @@ class PersistentManager {
             if let error = error {
                 fatalError(error.localizedDescription)
             }
+            
+            print("📁 Core Data store URL:", groupURL.path)
         }
         
         context = persistantManager.viewContext

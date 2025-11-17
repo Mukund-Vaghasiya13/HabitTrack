@@ -12,6 +12,7 @@ struct HomeView: View {
     @State private var sheetState: HabitSheet?
     
     @Environment(\.colorScheme) private var colorSchema
+    @Environment(DatabaseViewModel.self) var habitDbVM
     
     var body: some View {
         NavigationStack {
@@ -19,7 +20,12 @@ struct HomeView: View {
                 BackgroundColor()
                 
                 ScrollView(showsIndicators: false) {
-                
+                    ForEach(habitDbVM.habitRecord) { value in
+                        VStack {
+                            Text(value.name ?? "Fail To get name")
+                            Text(value.id?.uuidString ?? "Fail to get id")
+                        }
+                    }
                 }
                 .navigationTitle("HabitTrack")
                 .toolbar(content: {
@@ -49,6 +55,7 @@ struct HomeView: View {
                     switch value {
                     case .newHabit:
                         NewHabitView(title: "Add Habit")
+                            .environment(habitDbVM)
                     case .setting:
                         Text("Setting")
                     }
@@ -56,10 +63,4 @@ struct HomeView: View {
             }
         }
     }
-}
-
-
-
-#Preview {
-    HomeView()
 }
