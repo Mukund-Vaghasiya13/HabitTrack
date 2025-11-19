@@ -3,10 +3,20 @@
     <entity name="Habit" representedClassName="Habit" syncable="YES" codeGenerationType="class">
         <attribute name="color" optional="YES" attributeType="String"/>
         <attribute name="complitionPerDay" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" defaultDateTimeInterval="785136420" usesScalarValueType="NO"/>
         <attribute name="icon" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="reminder" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="reminderTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="progress" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HabitProgress" inverseName="habit" inverseEntity="HabitProgress"/>
+    </entity>
+    <entity name="HabitProgress" representedClassName="HabitProgress" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" optional="YES" attributeType="Date" defaultDateTimeInterval="785136360" usesScalarValueType="NO"/>
+        <attribute name="dailycount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="habit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Habit" inverseName="progress" inverseEntity="Habit"/>
     </entity>
 </model>

@@ -150,13 +150,17 @@ struct NewHabitView: View {
                     }
                 }
                 
+                //TODO: Validation  Before Saving Data/
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        habitDbVM.insertRecord(habit: habitFormFieldsVM.createHabit())
-                        dismissSheet()
+                        if let habit = habitFormFieldsVM.createHabit() {
+                            habitDbVM.insertRecord(habit: habit)
+                            dismissSheet()
+                        }
                     } label: {
                         Image(systemName: "checkmark.circle")
                     }
+                    .disabled(!habitFormFieldsVM.isNameFieldValid)
                 }
             }
             .onTapGesture {
