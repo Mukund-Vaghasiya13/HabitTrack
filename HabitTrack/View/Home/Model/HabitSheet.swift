@@ -8,7 +8,6 @@
 import Foundation
 
 enum HabitSheet: Hashable, CaseIterable, Identifiable {
-    
     var id: UUID {
         UUID()
     }

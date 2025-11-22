@@ -8,6 +8,8 @@
 import SwiftUI
 internal import CoreData
 
+
+@MainActor
 @Observable class DatabaseViewModel {
     
     var habitRecord: [Habit] = []
@@ -38,6 +40,5 @@ internal import CoreData
     func fetchHabitRecord() throws {
         let request = NSFetchRequest<Habit>(entityName: "Habit")
         self.habitRecord = try PersistentManager.shared.context.fetch(request)
-        print(habitRecord[0].name ?? "")
     }
 }
